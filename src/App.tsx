@@ -51,17 +51,17 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-svh bg-gradient-to-b from-emerald-50 to-white">
+      <div className="flex items-center justify-center min-h-svh bg-gradient-to-b from-navy-50 to-white">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4"></div>
-          <div className="text-emerald-700 text-base font-medium">Yükleniyor...</div>
+          <div className="w-12 h-12 border-4 border-navy-200 border-t-red-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="text-navy-700 text-base font-medium">Yükleniyor...</div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-lg mx-auto min-h-svh flex flex-col bg-gray-50">
+    <div className="max-w-lg mx-auto min-h-svh flex flex-col bg-navy-50">
       <Routes>
         <Route path="/" element={
           <HomePage seasons={seasons} />

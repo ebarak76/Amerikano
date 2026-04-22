@@ -15,7 +15,7 @@ export default function NewMatchPage({ getSeason, updateSeason }: Props) {
   const season = getSeason(seasonId!)
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
-  if (!season) return <div className="p-4 text-gray-500">Sezon bulunamadı.</div>
+  if (!season) return <div className="p-4 text-navy-400">Sezon bulunamadı.</div>
 
   function toggle(id: string) {
     const next = new Set(selected)
@@ -45,15 +45,19 @@ export default function NewMatchPage({ getSeason, updateSeason }: Props) {
   }
 
   return (
-    <div className="flex flex-col min-h-svh bg-gray-50">
+    <div className="flex flex-col min-h-svh bg-navy-50">
       <Header title="Yeni Maç" back={`/season/${seasonId}`} />
       <div className="flex-1 p-4 space-y-4 page-enter">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-navy-500 font-medium flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+            </svg>
             4 oyuncu seçin
           </p>
-          <span className={`text-sm font-bold px-3 py-1 rounded-full ${
-            selected.size === 4 ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'
+          <span className={`text-sm font-bold px-3.5 py-1.5 rounded-full ${
+            selected.size === 4 ? 'bg-green-100 text-green-700' : 'bg-navy-100 text-navy-400'
           }`}>
             {selected.size}/4
           </span>
@@ -64,19 +68,19 @@ export default function NewMatchPage({ getSeason, updateSeason }: Props) {
             <button
               key={p.id}
               onClick={() => toggle(p.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl border-2 font-medium transition-all text-sm ${
+              className={`w-full flex items-center gap-3 px-4 py-4 rounded-2xl border-2 font-semibold transition-all text-base ${
                 selected.has(p.id)
-                  ? 'border-emerald-500 bg-emerald-50 text-emerald-800 shadow-sm shadow-emerald-100'
-                  : 'border-gray-100 bg-white text-gray-600'
+                  ? 'border-navy-600 bg-navy-700 text-white shadow-lg shadow-navy-700/20'
+                  : 'border-navy-100 bg-white text-navy-600'
               } active:scale-[0.98]`}
             >
-              <span className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
+              <span className={`w-7 h-7 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
                 selected.has(p.id)
-                  ? 'border-emerald-500 bg-emerald-500'
-                  : 'border-gray-300'
+                  ? 'border-white bg-white'
+                  : 'border-navy-300'
               }`}>
                 {selected.has(p.id) && (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1e3157" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 )}
@@ -89,7 +93,7 @@ export default function NewMatchPage({ getSeason, updateSeason }: Props) {
         <button
           onClick={startMatch}
           disabled={selected.size !== 4}
-          className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-3.5 rounded-2xl text-base font-semibold active:scale-[0.98] transition-transform shadow-md shadow-emerald-600/30 disabled:opacity-40 disabled:shadow-none disabled:active:scale-100"
+          className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 rounded-2xl text-lg font-bold active:scale-[0.97] transition-transform shadow-lg shadow-red-600/30 disabled:opacity-40 disabled:shadow-none disabled:active:scale-100"
         >
           Maçı Başlat
         </button>

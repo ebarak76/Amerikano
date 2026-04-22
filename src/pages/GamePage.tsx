@@ -43,7 +43,7 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
     }
   }, [initialized, match, game, players])
 
-  if (!season || !match || !game) return <div className="p-4 text-gray-500">Oyun bulunamadı.</div>
+  if (!season || !match || !game) return <div className="p-4 text-navy-400">Oyun bulunamadı.</div>
 
   const gameTypeName = GAME_TYPES.find(gt => gt.id === game.gameTypeId)?.name
   const isReadOnly = game.completed && !editing
@@ -126,24 +126,35 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
   }
 
   return (
-    <div className="flex flex-col min-h-svh bg-gray-50">
+    <div className="flex flex-col min-h-svh bg-navy-50">
       <Header title={gameTypeName || 'Oyun'} back={`/season/${seasonId}/match/${matchId}`} />
       <div className="flex-1 p-4 space-y-3 page-enter">
         {game.completed && !editing && (
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-emerald-50 border border-emerald-200 rounded-2xl px-4 py-2.5 text-sm text-emerald-700 font-medium text-center">
-              Bu oyun tamamlandı
+            <div className="flex-1 bg-green-50 border border-green-200 rounded-2xl px-4 py-3 text-sm text-green-700 font-bold text-center flex items-center justify-center gap-2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Tamamlandı
             </div>
             <button
               onClick={() => setEditing(true)}
-              className="bg-amber-50 text-amber-700 border border-amber-200 px-4 py-2.5 rounded-2xl text-sm font-semibold active:bg-amber-100 transition-colors"
+              className="bg-amber-50 text-amber-700 border border-amber-200 px-5 py-3 rounded-2xl text-sm font-bold active:bg-amber-100 transition-colors flex items-center gap-1.5"
             >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
               Düzenle
             </button>
           </div>
         )}
         {editing && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-2.5 text-sm text-amber-700 font-medium text-center">
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 text-sm text-amber-700 font-bold text-center flex items-center justify-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
             Düzenleme modu
           </div>
         )}
@@ -160,12 +171,18 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
           preview.totalPoints = calculateGameScore(preview)
 
           return (
-            <div key={p.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div key={p.id} className="bg-white rounded-2xl border border-navy-100 shadow-sm overflow-hidden">
               {/* Player header */}
-              <div className="flex justify-between items-center px-4 py-3 bg-gray-50 border-b border-gray-100">
-                <span className="font-bold text-gray-800">{p.name}</span>
-                <span className={`font-bold text-xl tabular-nums ${
-                  preview.totalPoints < 0 ? 'text-emerald-600' : preview.totalPoints > 0 ? 'text-red-500' : 'text-gray-400'
+              <div className="flex justify-between items-center px-4 py-3 bg-navy-800 text-white">
+                <span className="font-bold text-base flex items-center gap-2">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  {p.name}
+                </span>
+                <span className={`font-bold text-xl tabular-nums px-3 py-1 rounded-lg ${
+                  preview.totalPoints < 0 ? 'bg-green-500/20 text-green-300' : preview.totalPoints > 0 ? 'bg-red-500/20 text-red-300' : 'bg-white/10 text-white/60'
                 }`}>
                   {preview.totalPoints}
                 </span>
@@ -175,19 +192,33 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
                 {/* Opened toggle */}
                 <button
                   onClick={() => toggleOpened(p.id)}
-                  className={`w-full py-2.5 rounded-xl font-medium text-sm transition-all ${
+                  className={`w-full py-3 rounded-xl font-bold text-base transition-all flex items-center justify-center gap-2 ${
                     s.opened
-                      ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
-                      : 'bg-gray-100 text-gray-500'
+                      ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md shadow-green-500/30'
+                      : 'bg-navy-100 text-navy-400'
                   } ${isReadOnly ? 'opacity-60' : 'active:scale-[0.98]'}`}
                 >
-                  {s.opened ? 'Açtı (-50)' : 'Açmadı'}
+                  {s.opened ? (
+                    <>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      Açtı (-50)
+                    </>
+                  ) : 'Açmadı'}
                 </button>
 
                 {/* Remaining points */}
                 {!s.opened && (
                   <div>
-                    <label className="text-xs text-gray-400 font-medium">Istaka Puanı</label>
+                    <label className="text-xs text-navy-400 font-bold flex items-center gap-1.5">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M12 20V10" />
+                        <path d="M18 20V4" />
+                        <path d="M6 20v-4" />
+                      </svg>
+                      Istaka Puanı
+                    </label>
                     <input
                       type="number"
                       inputMode="numeric"
@@ -195,36 +226,35 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
                       onChange={e => setRemaining(p.id, e.target.value)}
                       placeholder="0"
                       readOnly={isReadOnly}
-                      className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-base mt-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-gray-50"
+                      className="w-full border border-navy-200 rounded-xl px-4 py-3 text-lg mt-1 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent bg-navy-50 font-bold"
                     />
                   </div>
                 )}
 
                 {/* Isler counter */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between bg-navy-50 rounded-xl px-4 py-3">
                   <div>
-                    <span className="text-sm text-gray-600 font-medium">İşler</span>
-                    <span className="text-xs text-amber-600 ml-2 font-semibold">+{s.isler * 25}</span>
+                    <span className="text-base text-navy-700 font-bold">İşler</span>
+                    <span className="text-sm text-amber-600 ml-2 font-bold">+{s.isler * 25} puan</span>
                   </div>
-                  {!isReadOnly && (
+                  {!isReadOnly ? (
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => adjustIsler(p.id, -1)}
-                        className="w-10 h-10 rounded-xl bg-gray-100 text-gray-600 text-xl font-bold active:bg-gray-200 transition-colors flex items-center justify-center"
+                        className="w-12 h-12 rounded-xl bg-navy-200 text-navy-600 text-2xl font-bold active:bg-navy-300 transition-colors flex items-center justify-center"
                       >
                         -
                       </button>
-                      <span className="w-8 text-center font-bold text-lg tabular-nums">{s.isler}</span>
+                      <span className="w-10 text-center font-bold text-xl tabular-nums text-navy-800">{s.isler}</span>
                       <button
                         onClick={() => adjustIsler(p.id, 1)}
-                        className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 text-xl font-bold active:bg-amber-200 transition-colors flex items-center justify-center"
+                        className="w-12 h-12 rounded-xl bg-amber-400 text-white text-2xl font-bold active:bg-amber-500 transition-colors flex items-center justify-center shadow-md shadow-amber-400/30"
                       >
                         +
                       </button>
                     </div>
-                  )}
-                  {isReadOnly && (
-                    <span className="font-bold text-lg tabular-nums text-gray-600">{s.isler}</span>
+                  ) : (
+                    <span className="font-bold text-xl tabular-nums text-navy-700">{s.isler}</span>
                   )}
                 </div>
               </div>
@@ -236,15 +266,22 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
           <div className="space-y-2 pt-2">
             <button
               onClick={saveGame}
-              className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-3.5 rounded-2xl text-base font-semibold active:scale-[0.98] transition-transform shadow-md shadow-emerald-600/30"
+              className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 rounded-2xl text-lg font-bold active:scale-[0.97] transition-transform shadow-lg shadow-red-600/30 flex items-center justify-center gap-2"
             >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
               {editing ? 'Değişiklikleri Kaydet' : 'Oyunu Kaydet'}
             </button>
             {!editing && (
               <button
                 onClick={cancelGame}
-                className="w-full bg-gray-100 text-gray-500 py-3 rounded-2xl font-semibold active:bg-gray-200 transition-colors text-sm"
+                className="w-full bg-navy-100 text-navy-500 py-3.5 rounded-2xl font-bold active:bg-navy-200 transition-colors text-base flex items-center justify-center gap-2"
               >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M15 9l-6 6M9 9l6 6" />
+                </svg>
                 Oyunu İptal Et
               </button>
             )}
@@ -254,7 +291,7 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
                   setEditing(false)
                   setInitialized(false)
                 }}
-                className="w-full bg-gray-100 text-gray-500 py-3 rounded-2xl font-semibold active:bg-gray-200 transition-colors text-sm"
+                className="w-full bg-navy-100 text-navy-500 py-3.5 rounded-2xl font-bold active:bg-navy-200 transition-colors text-base"
               >
                 İptal
               </button>
