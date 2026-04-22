@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import type { Season, Match } from '../types'
 import { generateId } from '../store'
 import Header from '../components/Header'
+import Avatar from '../components/Avatar'
 
 interface Props {
   getSeason: (id: string) => Season | undefined
@@ -74,18 +75,13 @@ export default function NewMatchPage({ getSeason, updateSeason }: Props) {
                   : 'border-navy-100 bg-white text-navy-600'
               } active:scale-[0.98]`}
             >
-              <span className={`w-7 h-7 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${
-                selected.has(p.id)
-                  ? 'border-white bg-white'
-                  : 'border-navy-300'
-              }`}>
-                {selected.has(p.id) && (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1e3157" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                )}
-              </span>
-              {p.name}
+              <Avatar name={p.name} size="md" />
+              <span className="flex-1">{p.name}</span>
+              {selected.has(p.id) && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={selected.has(p.id) ? 'white' : '#1e3157'} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              )}
             </button>
           ))}
         </div>

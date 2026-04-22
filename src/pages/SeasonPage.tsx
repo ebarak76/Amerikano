@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import type { Season } from '../types'
 import Header from '../components/Header'
+import Avatar from '../components/Avatar'
 
 interface Props {
   getSeason: (id: string) => Season | undefined
@@ -53,7 +54,8 @@ export default function SeasonPage({ getSeason }: Props) {
           </h2>
           <div className="flex flex-wrap gap-2">
             {season.players.map(p => (
-              <span key={p.id} className="bg-navy-100 text-navy-700 px-3.5 py-2 rounded-full text-sm font-semibold">
+              <span key={p.id} className="bg-navy-100 text-navy-700 pl-1.5 pr-3.5 py-1.5 rounded-full text-sm font-semibold flex items-center gap-2">
+                <Avatar name={p.name} size="sm" />
                 {p.name}
               </span>
             ))}

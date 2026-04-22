@@ -4,6 +4,7 @@ import type { Season, Match, Game, GameScore } from '../types'
 import { GAME_TYPES } from '../types'
 import { calculateGameScore } from '../utils'
 import Header from '../components/Header'
+import Avatar from '../components/Avatar'
 
 interface Props {
   getSeason: (id: string) => Season | undefined
@@ -174,11 +175,8 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
             <div key={p.id} className="bg-white rounded-2xl border border-navy-100 shadow-sm overflow-hidden">
               {/* Player header */}
               <div className="flex justify-between items-center px-4 py-3 bg-navy-800 text-white">
-                <span className="font-bold text-base flex items-center gap-2">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
+                <span className="font-bold text-base flex items-center gap-2.5">
+                  <Avatar name={p.name} size="md" />
                   {p.name}
                 </span>
                 <span className={`font-bold text-xl tabular-nums px-3 py-1 rounded-lg ${

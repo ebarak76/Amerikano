@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import type { Season } from '../types'
 import { calculateLeagueTable } from '../utils'
 import Header from '../components/Header'
+import Avatar from '../components/Avatar'
 
 interface Props {
   getSeason: (id: string) => Season | undefined
@@ -150,9 +151,12 @@ export default function LeaguePage({ getSeason }: Props) {
               const rankStyle = RANK_STYLES[i] || { bg: 'bg-white', text: 'text-navy-400', badge: 'bg-navy-100 text-navy-500' }
               return (
                 <div key={row.player.id} className={`flex items-center px-4 py-3.5 ${i < 3 ? rankStyle.bg : ''}`}>
-                  <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${rankStyle.badge} shrink-0`}>
-                    {i + 1}
-                  </span>
+                  <div className="relative shrink-0">
+                    <Avatar name={row.player.name} size="md" />
+                    <span className={`absolute -bottom-1 -right-1 w-5 h-5 flex items-center justify-center rounded-full text-[10px] font-bold ${rankStyle.badge} border-2 border-white`}>
+                      {i + 1}
+                    </span>
+                  </div>
                   <div className="flex-1 ml-3">
                     <span className="font-bold text-sm text-navy-800">{row.player.name}</span>
                     {activeTab === 'average' && (

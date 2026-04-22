@@ -4,6 +4,7 @@ import { GAME_TYPES } from '../types'
 import { generateId } from '../store'
 import { getMatchTotalScores, getPlayedGameTypeIds, getMatchLeaguePoints } from '../utils'
 import Header from '../components/Header'
+import Avatar from '../components/Avatar'
 
 interface Props {
   getSeason: (id: string) => Season | undefined
@@ -113,9 +114,12 @@ export default function MatchPage({ getSeason, updateSeason }: Props) {
               const style = POSITION_STYLES[i] || POSITION_STYLES[3]
               return (
                 <div key={p.id} className={`flex items-center px-3 py-3 rounded-xl ${style.bg} border ${style.border}`}>
-                  <span className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${style.badge} shrink-0`}>
-                    {i + 1}
-                  </span>
+                  <div className="relative shrink-0">
+                    <Avatar name={p.name} size="md" />
+                    <span className={`absolute -bottom-1 -right-1 w-5 h-5 flex items-center justify-center rounded-full text-[10px] font-bold ${style.badge} border-2 border-white`}>
+                      {i + 1}
+                    </span>
+                  </div>
                   <span className="flex-1 font-bold text-base ml-3 text-navy-800">{p.name}</span>
                   <span className="font-bold text-xl tabular-nums text-navy-800">
                     {totals.get(p.id) || 0}
