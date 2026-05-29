@@ -86,3 +86,39 @@ export function calculateLeagueTable(season: Season): LeagueRow[] {
 export function getPlayedGameTypeIds(match: Match): number[] {
   return match.games.filter(g => g.completed).map(g => g.gameTypeId);
 }
+
+export interface OpeningRow {
+  player: { id: string; name: string };
+  matchesPlayed: number;
+  openings: number;
+}
+
+export function calculateOpeningTable(season: Season): OpeningRow[] {
+  const rows = new Map<string, OpeningRow>();
+
+  for (const player of season.players) {
+    rows.set(player.id, { player, matchesPlayed: 0, openings: 0 });
+  }
+
+  for (const match of season.matches) {
+    if (!match.completed) continue;
+    for (const pid of match.playerIds) {
+      const row = rows.get(pid);
+      if (row) row.matchesPlayed++;
+    }
+    for (const game of match.games) {
+      if (!game.completed) continue;
+      for (const score of game.scores) {
+        if (score.opened) {
+          const row = rows.get(score.playerId);
+          if (row) row.openings++;
+        }
+      }
+    }
+  }
+
+  return [...rows.values()].sort((a, b) => {
+    if (b.openings !== a.openings) return b.openings - a.openings;
+    return a.matchesPlayed - b.matchesPlayed;
+  });
+}
