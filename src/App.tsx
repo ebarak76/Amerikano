@@ -15,14 +15,21 @@ const POLL_INTERVAL = 5000
 function App() {
   const [seasons, setSeasons] = useState<Season[]>([])
   const [loading, setLoading] = useState(true)
+  const [saveError, setSaveError] = useState(false)
   const navigate = useNavigate()
   const savingRef = useRef(false)
+  const mutationEpochRef = useRef(0)
 
   const fetchSeasons = useCallback(async () => {
     if (savingRef.current) return
+    const epochAtStart = mutationEpochRef.current
     const data = await loadSeasons()
-    setSeasons(data)
     setLoading(false)
+    // Discard this server snapshot if a local change happened while the
+    // request was in flight — otherwise a stale read would clobber unsaved
+    // local state (e.g. a match that was just created).
+    if (savingRef.current || mutationEpochRef.current !== epochAtStart) return
+    setSeasons(data)
   }, [])
 
   useEffect(() => {
@@ -35,18 +42,27 @@ function App() {
     return seasons.find(s => s.id === id)
   }
 
-  async function updateSeason(season: Season) {
+  async function persist(season: Season) {
     savingRef.current = true
+    mutationEpochRef.current++
+    try {
+      await saveSeason(season)
+      setSaveError(false)
+    } catch {
+      setSaveError(true)
+    } finally {
+      savingRef.current = false
+    }
+  }
+
+  async function updateSeason(season: Season) {
     setSeasons(prev => prev.map(s => s.id === season.id ? season : s))
-    await saveSeason(season)
-    savingRef.current = false
+    await persist(season)
   }
 
   async function addSeason(season: Season) {
-    savingRef.current = true
     setSeasons(prev => [...prev, season])
-    await saveSeason(season)
-    savingRef.current = false
+    await persist(season)
   }
 
   if (loading) {
@@ -62,6 +78,18 @@ function App() {
 
   return (
     <div className="max-w-lg mx-auto min-h-svh flex flex-col bg-navy-50">
+      {saveError && (
+        <div className="fixed top-0 inset-x-0 z-50 max-w-lg mx-auto">
+          <div className="m-2 flex items-center gap-2 bg-red-600 text-white text-sm font-semibold px-4 py-3 rounded-xl shadow-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+              <path d="M12 9v4M12 17h.01" />
+              <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            </svg>
+            <span className="flex-1">Kaydedilemedi — internet bağlantını kontrol et. Değişiklik henüz sunucuya yazılmadı.</span>
+            <button onClick={() => setSaveError(false)} className="shrink-0 font-bold px-1" aria-label="Kapat">✕</button>
+          </div>
+        </div>
+      )}
       <Routes>
         <Route path="/" element={
           <HomePage seasons={seasons} />

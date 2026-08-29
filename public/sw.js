@@ -1,4 +1,4 @@
-const CACHE_NAME = 'amerikano-v1'
+const CACHE_NAME = 'amerikano-v2'
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -17,21 +17,29 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url)
+  const { request } = event
+  const url = new URL(request.url)
 
-  // API calls: always go to network
-  if (url.pathname.startsWith('/api/')) {
+  // Only handle same-origin GET requests (the app shell + static assets).
+  // Everything else — POST/PUT/DELETE, and any cross-origin request such as
+  // the Supabase API — must go straight to the network untouched. Intercepting
+  // those breaks writes (POSTs can't be cached and returning a non-Response
+  // throws "Failed to convert value to 'Response'").
+  if (request.method !== 'GET' || url.origin !== self.location.origin) {
     return
   }
 
-  // For everything else: network first, fallback to cache
+  // Network first, fall back to cache. Always resolve to a real Response.
   event.respondWith(
-    fetch(event.request)
+    fetch(request)
       .then((response) => {
         const clone = response.clone()
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone))
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, clone))
         return response
       })
-      .catch(() => caches.match(event.request))
+      .catch(async () => {
+        const cached = await caches.match(request)
+        return cached || Response.error()
+      })
   )
 })

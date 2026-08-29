@@ -50,6 +50,7 @@ export async function saveSeason(season: Season): Promise<void> {
 
   if (error) {
     console.error('Failed to save season:', error)
+    throw error
   }
 }
 
