@@ -1,0 +1,64 @@
+name: Supabase yedek + keep-alive
+
+# Ne işe yarar:
+#  1) KEEP-ALIVE: 2 günde bir Supabase'i okur. Bu okuma projeyi "aktif"
+#     tutar, böylece ücretsiz plan onu hareketsizlikten uykuya alıp silemez.
+#  2) YEDEK: Çekilen tüm veriyi backups/seasons.json dosyasına yazıp repoya
+#     commit eder. Git geçmişi sayesinde her yedek sürümü saklanır.
+#
+# Not: anon anahtar zaten istemciye açık gönderildiği için gizli değildir;
+# güvenlik sınırı Supabase RLS izinleridir.
+
+on:
+  schedule:
+    - cron: '0 6 */2 * *'   # her 2 günde bir, 06:00 UTC
+  workflow_dispatch: {}       # panelden elle de çalıştırılabilir
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repoyu al
+        uses: actions/checkout@v4
+
+      - name: Supabase'den veriyi çek ve doğrula
+        env:
+          SUPABASE_URL: https://digtvkprskpgiprzwptw.supabase.co
+          SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRpZ3R2a3Byc2twZ2lwcnp3cHR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3ODY3MTQsImV4cCI6MjA4OTM2MjcxNH0.CWUWdcCTUA9_cfC6mFAkglI5AG6zHJAuG_w9KpOdBh8
+        run: |
+          mkdir -p backups
+          curl -sS --fail \
+            "$SUPABASE_URL/rest/v1/seasons?select=*&order=created_at.asc" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -o backups/raw.json
+          python3 - <<'PY'
+          import json, os, sys
+          new = json.load(open('backups/raw.json'))
+          if not isinstance(new, list):
+              sys.exit('Beklenmeyen yanit (liste degil) - yedek atlaniyor.')
+          prev_path = 'backups/seasons.json'
+          # Koruma: yeni veri BOSsa ama mevcut yedek DOLUysa uzerine yazma.
+          if len(new) == 0 and os.path.exists(prev_path):
+              if len(json.load(open(prev_path))) > 0:
+                  sys.exit('Yeni veri bos ama mevcut yedek dolu - korunuyor.')
+          json.dump(new, open(prev_path, 'w'),
+                    ensure_ascii=False, indent=2, sort_keys=True)
+          print(f'{len(new)} sezon yedeklendi.')
+          PY
+          rm -f backups/raw.json
+
+      - name: Değişiklik varsa commit et
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- backups/seasons.json; then
+            echo "Veride degisiklik yok - keep-alive tamam, commit gerekmedi."
+          else
+            git add backups/seasons.json
+            git commit -m "Otomatik yedek: $(date -u +%Y-%m-%d)"
+            git push
+          fi

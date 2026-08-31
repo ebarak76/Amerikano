@@ -2,6 +2,18 @@ import { Link } from 'react-router-dom'
 import type { Season } from '../types'
 import Header from '../components/Header'
 
+function downloadBackup(seasons: Season[]) {
+  const json = JSON.stringify(seasons, null, 2)
+  const blob = new Blob([json], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const date = new Date().toISOString().slice(0, 10)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `amerikano-yedek-${date}.json`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
 export default function HomePage({ seasons }: { seasons: Season[] }) {
   return (
     <div className="flex flex-col min-h-svh bg-navy-50">
@@ -16,6 +28,20 @@ export default function HomePage({ seasons }: { seasons: Season[] }) {
           </svg>
           Yeni Sezon
         </Link>
+
+        {seasons.length > 0 && (
+          <button
+            onClick={() => downloadBackup(seasons)}
+            className="flex items-center justify-center gap-2 w-full bg-white text-navy-600 py-3 rounded-2xl text-sm font-bold border-2 border-navy-100 active:scale-[0.98] transition-transform"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Yedek Al (JSON indir)
+          </button>
+        )}
 
         {seasons.length === 0 ? (
           <div className="text-center py-16">
