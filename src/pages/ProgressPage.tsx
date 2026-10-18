@@ -6,6 +6,7 @@ import LineChart from '../components/LineChart'
 import type { ChartSeries } from '../components/LineChart'
 import { seriesColor } from '../chartTheme'
 import Header from '../components/Header'
+import NotFound from '../components/NotFound'
 import Avatar from '../components/Avatar'
 
 interface Props {
@@ -18,7 +19,7 @@ export default function ProgressPage({ getSeason }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null)
   const [showTable, setShowTable] = useState(false)
 
-  if (!season) return <div className="p-4 text-navy-400">Sezon bulunamadı.</div>
+  if (!season) return <NotFound message="Sezon bulunamadı." />
 
   const { weeks, players } = calculateSeasonProgress(season)
   const labels = weeks.map(w => w.label)

@@ -4,6 +4,7 @@ import type { Season, Match, Game, GameScore } from '../types'
 import { GAME_TYPES } from '../types'
 import { calculateGameScore } from '../utils'
 import Header from '../components/Header'
+import NotFound from '../components/NotFound'
 import Avatar from '../components/Avatar'
 
 interface Props {
@@ -44,7 +45,7 @@ export default function GamePage({ getSeason, updateSeason }: Props) {
     }
   }, [initialized, match, game, players])
 
-  if (!season || !match || !game) return <div className="p-4 text-navy-400">Oyun bulunamadı.</div>
+  if (!season || !match || !game) return <NotFound message="Oyun bulunamadı." />
 
   const gameTypeName = GAME_TYPES.find(gt => gt.id === game.gameTypeId)?.name
   const isReadOnly = game.completed && !editing

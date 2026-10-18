@@ -4,6 +4,7 @@ import { GAME_TYPES } from '../types'
 import { generateId } from '../store'
 import { getMatchTotalScores, getPlayedGameTypeIds, getMatchLeaguePoints } from '../utils'
 import Header from '../components/Header'
+import NotFound from '../components/NotFound'
 import Avatar from '../components/Avatar'
 
 interface Props {
@@ -24,7 +25,7 @@ export default function MatchPage({ getSeason, updateSeason }: Props) {
   const season = getSeason(seasonId!)
   const match = season?.matches.find(m => m.id === matchId)
 
-  if (!season || !match) return <div className="p-4 text-navy-400">Maç bulunamadı.</div>
+  if (!season || !match) return <NotFound message="Maç bulunamadı." />
 
   const players = match.playerIds.map(pid => season.players.find(p => p.id === pid)!)
   const totals = getMatchTotalScores(match)

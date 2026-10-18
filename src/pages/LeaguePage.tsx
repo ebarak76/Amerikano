@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import type { Season } from '../types'
 import { calculateLeagueTable, calculateOpeningTable } from '../utils'
 import Header from '../components/Header'
+import NotFound from '../components/NotFound'
 import Avatar from '../components/Avatar'
 
 interface Props {
@@ -32,7 +33,7 @@ export default function LeaguePage({ getSeason }: Props) {
   const season = getSeason(seasonId!)
   const [activeTab, setActiveTab] = useState<Tab>('total')
 
-  if (!season) return <div className="p-4 text-navy-400">Sezon bulunamadı.</div>
+  if (!season) return <NotFound message="Sezon bulunamadı." />
 
   const baseTable = calculateLeagueTable(season)
 

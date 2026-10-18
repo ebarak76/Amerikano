@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import type { Season } from '../types'
 import Header from '../components/Header'
+import NotFound from '../components/NotFound'
 import Avatar from '../components/Avatar'
 
 interface Props {
@@ -12,7 +13,7 @@ export default function SeasonPage({ getSeason }: Props) {
   const { seasonId } = useParams<{ seasonId: string }>()
   const season = getSeason(seasonId!)
 
-  if (!season) return <div className="p-4 text-navy-400">Sezon bulunamadı.</div>
+  if (!season) return <NotFound message="Sezon bulunamadı." />
 
   return (
     <div className="flex flex-col min-h-svh bg-navy-50">

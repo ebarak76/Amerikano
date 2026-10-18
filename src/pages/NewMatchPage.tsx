@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import type { Season, Match } from '../types'
 import { generateId } from '../store'
 import Header from '../components/Header'
+import NotFound from '../components/NotFound'
 import Avatar from '../components/Avatar'
 
 interface Props {
@@ -16,7 +17,7 @@ export default function NewMatchPage({ getSeason, updateSeason }: Props) {
   const season = getSeason(seasonId!)
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
-  if (!season) return <div className="p-4 text-navy-400">Sezon bulunamadı.</div>
+  if (!season) return <NotFound message="Sezon bulunamadı." />
 
   function toggle(id: string) {
     const next = new Set(selected)
