@@ -403,6 +403,10 @@ export interface Stats {
   lowestWinningScore: MatchRecord | null
   /** En yüksek skorla kazanılan maç — en zor/çekişmeli galibiyet */
   highestWinningScore: MatchRecord | null
+  /** Sonuncu olunan en düşük skor — iyi oynayıp yine de 4. olmak */
+  lowestLastPlaceScore: MatchRecord | null
+  /** Sonuncu olunan en yüksek skor — en kötü maç */
+  highestLastPlaceScore: MatchRecord | null
 }
 
 export function calculateStats(seasons: Season[]): Stats {
@@ -411,6 +415,8 @@ export function calculateStats(seasons: Season[]): Stats {
   let gameCount = 0
   let lowestWinningScore: MatchRecord | null = null
   let highestWinningScore: MatchRecord | null = null
+  let lowestLastPlaceScore: MatchRecord | null = null
+  let highestLastPlaceScore: MatchRecord | null = null
 
   for (const season of seasons) {
     const nameOf = new Map(season.players.map(p => [p.id, p.name.trim()]))
@@ -423,6 +429,11 @@ export function calculateStats(seasons: Season[]): Stats {
       const totals = getMatchTotalScores(match)
       const leaguePoints = getMatchLeaguePoints(match)
       const openings = getMatchOpenings(match)
+
+      // Sonuncu = maçtaki en yüksek toplam skor. Maçlar 4 kişilik olduğu için
+      // bu 4.'lük demektir; skor eşitse sonuncluğu paylaşan herkes sayılır.
+      const allScores = [...totals.values()]
+      const worstScore = allScores.length > 0 ? Math.max(...allScores) : null
 
       for (const [playerId, points] of leaguePoints) {
         const name = nameOf.get(playerId)
@@ -445,17 +456,24 @@ export function calculateStats(seasons: Season[]): Stats {
         if (points === 3) row.wins++
         if (points === 1) row.seconds++
 
-        // Rekorlar yalnızca maçı kazananlar arasından
+        const record: MatchRecord = {
+          playerName: name,
+          score,
+          seasonName: season.name,
+          matchNumber: index + 1,
+          createdAt: match.createdAt,
+        }
+
+        // Galibiyet rekorları
         if (points === 3) {
-          const record: MatchRecord = {
-            playerName: name,
-            score,
-            seasonName: season.name,
-            matchNumber: index + 1,
-            createdAt: match.createdAt,
-          }
           if (!lowestWinningScore || score < lowestWinningScore.score) lowestWinningScore = record
           if (!highestWinningScore || score > highestWinningScore.score) highestWinningScore = record
+        }
+
+        // Sonunculuk (4.) rekorları
+        if (worstScore !== null && score === worstScore) {
+          if (!lowestLastPlaceScore || score < lowestLastPlaceScore.score) lowestLastPlaceScore = record
+          if (!highestLastPlaceScore || score > highestLastPlaceScore.score) highestLastPlaceScore = record
         }
       }
     })
@@ -478,6 +496,8 @@ export function calculateStats(seasons: Season[]): Stats {
     gameCount,
     lowestWinningScore,
     highestWinningScore,
+    lowestLastPlaceScore,
+    highestLastPlaceScore,
   }
 }
 

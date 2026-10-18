@@ -59,10 +59,14 @@ function LeaderCard({
 
 function RecordTile({
   label, hint, record, tone,
-}: { label: string; hint: string; record: MatchRecord | null; tone: 'green' | 'amber' }) {
-  const palette = tone === 'green'
-    ? { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', sub: 'text-green-600' }
-    : { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', sub: 'text-amber-600' }
+}: { label: string; hint: string; record: MatchRecord | null; tone: 'green' | 'amber' | 'navy' | 'red' }) {
+  const palettes = {
+    green: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', sub: 'text-green-600' },
+    amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', sub: 'text-amber-600' },
+    navy:  { bg: 'bg-navy-100', border: 'border-navy-200', text: 'text-navy-700', sub: 'text-navy-500' },
+    red:   { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', sub: 'text-red-600' },
+  }
+  const palette = palettes[tone]
 
   return (
     <div className={`${palette.bg} border ${palette.border} rounded-2xl p-4`}>
@@ -137,7 +141,7 @@ export default function StatsPage({ seasons }: { seasons: Season[] }) {
               </div>
             </div>
 
-            {/* Rekorlar */}
+            {/* Galibiyet rekorları */}
             <div>
               <h2 className="text-xs font-bold text-navy-400 uppercase tracking-wider mb-2 px-1">
                 Maç Kazanma Rekorları
@@ -154,6 +158,27 @@ export default function StatsPage({ seasons }: { seasons: Season[] }) {
                   hint="Yine de maçı kazanan en yüksek toplam skor — en çekişmeli galibiyet."
                   record={stats.highestWinningScore}
                   tone="amber"
+                />
+              </div>
+            </div>
+
+            {/* Sonunculuk rekorları */}
+            <div>
+              <h2 className="text-xs font-bold text-navy-400 uppercase tracking-wider mb-2 px-1">
+                Maç Kaybetme Rekorları
+              </h2>
+              <div className="space-y-3">
+                <RecordTile
+                  label="En az puanla 4. olma"
+                  hint="İyi oynayıp yine de sonuncu olunan en düşük skor — en şanssız maç."
+                  record={stats.lowestLastPlaceScore}
+                  tone="navy"
+                />
+                <RecordTile
+                  label="En çok puanla 4. olma"
+                  hint="Sonuncu olunan en yüksek toplam skor — en kötü maç."
+                  record={stats.highestLastPlaceScore}
+                  tone="red"
                 />
               </div>
             </div>
