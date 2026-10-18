@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import type { Season } from '../types'
-import type { StatPlayer, MatchRecord } from '../utils'
-import { calculateStats, getSeasonIstakaKing, SEASON_MATCH_TARGET } from '../utils'
+import type { StatPlayer, MatchRecord, GameTypeStats } from '../utils'
+import { calculateStats, calculateGameTypeStats, getSeasonIstakaKing, SEASON_MATCH_TARGET } from '../utils'
 import Header from '../components/Header'
 import Avatar from '../components/Avatar'
 import NotFound from '../components/NotFound'
@@ -89,6 +89,112 @@ function RecordTile({
   )
 }
 
+const TRACK_TICKS = [1, 4, 8, 12]
+const trackPct = (v: number) => ((v - 1) / 11) * 100
+
+function GameTypeSection({ stats }: { stats: GameTypeStats }) {
+  if (stats.matchCount === 0) return null
+
+  return (
+    <div>
+      <h2 className="text-xs font-bold text-navy-400 uppercase tracking-wider mb-2 px-1">
+        Oyun Tipi İstatistikleri
+      </h2>
+
+      {/* Hangi dilimde hangi tip tercih ediliyor */}
+      <div className="grid grid-cols-2 gap-3">
+        {stats.slots.map(slot => (
+          <div
+            key={slot.key}
+            className={`bg-white rounded-2xl p-3 shadow-sm border border-navy-100 ${
+              slot.key === 'last1' ? 'col-span-2' : ''
+            }`}
+          >
+            <div className="text-[10px] font-bold text-navy-400 uppercase tracking-wider">
+              {slot.label}
+            </div>
+            {slot.topNames.length === 0 ? (
+              <div className="text-xs text-navy-300 font-medium mt-1.5">Veri yok</div>
+            ) : (
+              <>
+                <div className="text-sm font-bold text-navy-800 mt-1 leading-5">
+                  {slot.topNames.join(' / ')}
+                </div>
+                <div className="text-[10px] text-navy-400 font-semibold mt-0.5">
+                  {slot.count}/{slot.total} kez · %{Math.round((slot.count / slot.total) * 100)}
+                </div>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Oyun tiplerinin maç içindeki ortalama sırası */}
+      <div className="bg-white rounded-2xl p-4 shadow-sm border border-navy-100 mt-3">
+        <div className="text-[10px] font-bold text-navy-400 uppercase tracking-wider">
+          Ortalama Oynanma Sırası
+        </div>
+        <p className="text-[11px] text-navy-300 mb-3 mt-0.5">
+          Nokta = ortalama sıra · çubuk = en erken–en geç
+        </p>
+
+        <div className="space-y-1.5">
+          {stats.positions.map(p => (
+            <div key={p.gameTypeId} className="flex items-center gap-1.5">
+              <span className="w-[86px] shrink-0 text-[9px] font-semibold text-navy-600 leading-3">
+                {p.name}
+              </span>
+              <div className="relative flex-1 h-4">
+                {TRACK_TICKS.map(t => (
+                  <span
+                    key={t}
+                    className="absolute inset-y-0 w-px bg-[#e1e0d9]"
+                    style={{ left: `${trackPct(t)}%` }}
+                  />
+                ))}
+                <span
+                  className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-navy-200"
+                  style={{
+                    left: `${trackPct(p.min)}%`,
+                    width: `${trackPct(p.max) - trackPct(p.min)}%`,
+                  }}
+                />
+                <span
+                  className="absolute top-1/2 w-2 h-2 -translate-y-1/2 -translate-x-1/2 rounded-full border-2 border-white"
+                  style={{ left: `${trackPct(p.average)}%`, background: '#2a78d6' }}
+                />
+              </div>
+              <span className="w-6 shrink-0 text-right text-[9px] font-bold text-navy-700 tabular-nums">
+                {p.average.toFixed(1)}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* eksen */}
+        <div className="flex items-center gap-1.5 mt-1">
+          <span className="w-[86px] shrink-0" />
+          <div className="relative flex-1 h-3">
+            {TRACK_TICKS.map(t => (
+              <span
+                key={t}
+                className="absolute text-[9px] text-navy-400 tabular-nums -translate-x-1/2"
+                style={{ left: `${trackPct(t)}%` }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          <span className="w-6 shrink-0" />
+        </div>
+        <p className="text-[10px] text-navy-400 text-center mt-2">
+          Maç içindeki el sırası (1 = ilk el, 12 = son el)
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export default function StatsPage({ seasons }: { seasons: Season[] }) {
   const { seasonId } = useParams<{ seasonId?: string }>()
   const season = seasonId ? seasons.find(s => s.id === seasonId) : undefined
@@ -97,6 +203,7 @@ export default function StatsPage({ seasons }: { seasons: Season[] }) {
 
   const scoped = season ? [season] : seasons
   const stats = calculateStats(scoped)
+  const gameTypeStats = calculateGameTypeStats(scoped)
   const kings = scoped
     .map(s => ({ season: s, king: getSeasonIstakaKing(s) }))
     .filter((x): x is { season: Season; king: NonNullable<ReturnType<typeof getSeasonIstakaKing>> } => x.king !== null)
@@ -248,6 +355,8 @@ export default function StatsPage({ seasons }: { seasons: Season[] }) {
                 })()}
               </div>
             </div>
+
+            <GameTypeSection stats={gameTypeStats} />
 
             {/* Tüm oyuncular */}
             <div>

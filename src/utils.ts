@@ -1,4 +1,5 @@
 import type { Match, Season, LeagueRow, GameScore, Player } from './types';
+import { GAME_TYPES } from './types';
 
 export function calculateGameScore(score: GameScore): number {
   const base = score.opened ? -50 : score.remainingPoints;
@@ -524,4 +525,99 @@ export function getSeasonIstakaKing(season: Season): IstakaKing | null {
     openings: top.openings,
     shared: table.filter(r => r.openings === top.openings).length > 1,
   }
+}
+
+// ---------------------------------------------------------------------------
+// Oyun tipi istatistikleri: hangi tip maçın hangi sırasında oynanıyor
+// ---------------------------------------------------------------------------
+
+export interface GameTypeSlot {
+  key: string
+  label: string
+  /** O dilimde en çok oynanan tip(ler) — beraberlikte birden fazla olabilir */
+  topNames: string[]
+  count: number
+  total: number
+}
+
+export interface GameTypePosition {
+  gameTypeId: number
+  name: string
+  /** Maç içindeki ortalama sıra (1–12) */
+  average: number
+  min: number
+  max: number
+  count: number
+}
+
+export interface GameTypeStats {
+  matchCount: number
+  slots: GameTypeSlot[]
+  /** Ortalama sıraya göre artan: erken oynananlar önce */
+  positions: GameTypePosition[]
+}
+
+function gameTypeName(id: number): string {
+  return GAME_TYPES.find(t => t.id === id)?.name ?? `#${id}`
+}
+
+export function calculateGameTypeStats(seasons: Season[]): GameTypeStats {
+  // Her tamamlanmış maç için oynanış sırasıyla oyun tipi dizisi
+  const sequences: number[][] = []
+  for (const season of seasons) {
+    for (const match of season.matches) {
+      if (!match.completed) continue
+      const seq = match.games.filter(g => g.completed).map(g => g.gameTypeId)
+      if (seq.length > 0) sequences.push(seq)
+    }
+  }
+
+  // Dilimler sondan sayılarak alınır; böylece 12 elden kısa bir maç olsa da doğru çalışır.
+  const slotDefs: { key: string; label: string; pick: (seq: number[]) => number[] }[] = [
+    { key: 'first1', label: 'İlk el', pick: s => s.slice(0, 1) },
+    { key: 'first4', label: 'İlk 4 el', pick: s => s.slice(0, 4) },
+    { key: 'last4', label: 'Son 4 el', pick: s => s.slice(-4) },
+    { key: 'last2', label: 'Sondan önceki el', pick: s => (s.length >= 2 ? [s[s.length - 2]] : []) },
+    { key: 'last1', label: 'Son el', pick: s => s.slice(-1) },
+  ]
+
+  const slots: GameTypeSlot[] = slotDefs.map(def => {
+    const counts = new Map<number, number>()
+    let total = 0
+    for (const seq of sequences) {
+      for (const id of def.pick(seq)) {
+        counts.set(id, (counts.get(id) ?? 0) + 1)
+        total++
+      }
+    }
+    let best = 0
+    for (const v of counts.values()) if (v > best) best = v
+    const topNames = [...counts.entries()]
+      .filter(([, v]) => v === best && best > 0)
+      .map(([id]) => gameTypeName(id))
+      .sort((a, b) => a.localeCompare(b, 'tr'))
+    return { key: def.key, label: def.label, topNames, count: best, total }
+  })
+
+  const byType = new Map<number, number[]>()
+  for (const seq of sequences) {
+    seq.forEach((id, i) => {
+      const list = byType.get(id)
+      if (list) list.push(i + 1)
+      else byType.set(id, [i + 1])
+    })
+  }
+
+  const positions: GameTypePosition[] = [...byType.entries()]
+    .map(([gameTypeId, list]) => ({
+      gameTypeId,
+      name: gameTypeName(gameTypeId),
+      average: list.reduce((a, b) => a + b, 0) / list.length,
+      min: Math.min(...list),
+      max: Math.max(...list),
+      count: list.length,
+    }))
+    .sort((a, b) => a.average - b.average)
+
+  return { matchCount: sequences.length, slots, positions }
 }
