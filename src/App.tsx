@@ -10,6 +10,7 @@ import MatchPage from './pages/MatchPage'
 import GamePage from './pages/GamePage'
 import LeaguePage from './pages/LeaguePage'
 import ProgressPage from './pages/ProgressPage'
+import ChampionshipPage from './pages/ChampionshipPage'
 
 const POLL_INTERVAL = 5000
 
@@ -94,6 +95,9 @@ function App() {
       <Routes>
         <Route path="/" element={
           <HomePage seasons={seasons} />
+        } />
+        <Route path="/championships" element={
+          <ChampionshipPage seasons={seasons} />
         } />
         <Route path="/new-season" element={
           <NewSeasonPage onSave={async (season) => {

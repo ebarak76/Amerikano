@@ -52,6 +52,7 @@ export default function LeaguePage({ getSeason }: Props) {
     }))
     .sort((a, b) => {
       if (b.avgPoints !== a.avgPoints) return b.avgPoints - a.avgPoints
+      if (b.openings !== a.openings) return b.openings - a.openings
       if (b.wins !== a.wins) return b.wins - a.wins
       return b.seconds - a.seconds
     })
@@ -221,7 +222,12 @@ export default function LeaguePage({ getSeason }: Props) {
         </div>
 
         {/* Legend */}
-        <div className="mt-3 flex justify-center gap-4 text-[11px] text-navy-400 font-medium">
+        {activeTab !== 'openings' && (
+          <p className="mt-3 text-center text-[11px] text-navy-400 font-medium">
+            Puan eşitliğinde <span className="font-bold">el açma</span> sayısı belirleyicidir.
+          </p>
+        )}
+        <div className="mt-2 flex justify-center gap-4 text-[11px] text-navy-400 font-medium">
           <span>M: Maç</span>
           {activeTab === 'openings' ? (
             <>

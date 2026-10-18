@@ -49,6 +49,21 @@ export function getMatchLeaguePoints(match: Match): Map<string, number> {
   return leaguePoints;
 }
 
+/** Bir maçta her oyuncunun kaç el açtığı. */
+export function getMatchOpenings(match: Match): Map<string, number> {
+  const openings = new Map<string, number>();
+  for (const pid of match.playerIds) openings.set(pid, 0);
+  for (const game of match.games) {
+    if (!game.completed) continue;
+    for (const score of game.scores) {
+      if (!score.opened) continue;
+      const current = openings.get(score.playerId);
+      if (current !== undefined) openings.set(score.playerId, current + 1);
+    }
+  }
+  return openings;
+}
+
 export function calculateLeagueTable(season: Season): LeagueRow[] {
   const rows: Map<string, LeagueRow> = new Map();
 
@@ -58,6 +73,7 @@ export function calculateLeagueTable(season: Season): LeagueRow[] {
       matchesPlayed: 0,
       wins: 0,
       seconds: 0,
+      openings: 0,
       totalPoints: 0,
     });
   }
@@ -65,22 +81,31 @@ export function calculateLeagueTable(season: Season): LeagueRow[] {
   for (const match of season.matches) {
     if (!match.completed) continue;
     const leaguePoints = getMatchLeaguePoints(match);
+    const matchOpenings = getMatchOpenings(match);
 
     for (const [playerId, points] of leaguePoints) {
       const row = rows.get(playerId);
       if (!row) continue;
       row.matchesPlayed++;
       row.totalPoints += points;
+      row.openings += matchOpenings.get(playerId) ?? 0;
       if (points === 3) row.wins++;
       if (points === 1) row.seconds++;
     }
   }
 
-  return [...rows.values()].sort((a, b) => {
-    if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
-    if (b.wins !== a.wins) return b.wins - a.wins;
-    return b.seconds - a.seconds;
-  });
+  return [...rows.values()].sort(compareLeagueRows);
+}
+
+/**
+ * Sezon sıralaması: puan, sonra EL AÇMA, sonra galibiyet, sonra ikincilik.
+ * Şampiyonluk kuralıyla aynı ölçüt — tablonun 1.'si her zaman şampiyondur.
+ */
+export function compareLeagueRows(a: LeagueRow, b: LeagueRow): number {
+  if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
+  if (b.openings !== a.openings) return b.openings - a.openings;
+  if (b.wins !== a.wins) return b.wins - a.wins;
+  return b.seconds - a.seconds;
 }
 
 export function getPlayedGameTypeIds(match: Match): number[] {
@@ -106,14 +131,9 @@ export function calculateOpeningTable(season: Season): OpeningRow[] {
       const row = rows.get(pid);
       if (row) row.matchesPlayed++;
     }
-    for (const game of match.games) {
-      if (!game.completed) continue;
-      for (const score of game.scores) {
-        if (score.opened) {
-          const row = rows.get(score.playerId);
-          if (row) row.openings++;
-        }
-      }
+    for (const [playerId, count] of getMatchOpenings(match)) {
+      const row = rows.get(playerId);
+      if (row) row.openings += count;
     }
   }
 
@@ -193,8 +213,8 @@ export function calculateSeasonProgress(season: Season): SeasonProgress {
   }))
 
   // Lig tablosuyla aynı sıralama ölçütleri: puan, sonra galibiyet, sonra ikincilik.
-  const totals = new Map<string, { points: number; wins: number; seconds: number }>()
-  for (const p of season.players) totals.set(p.id, { points: 0, wins: 0, seconds: 0 })
+  const totals = new Map<string, { points: number; openings: number; wins: number; seconds: number }>()
+  for (const p of season.players) totals.set(p.id, { points: 0, openings: 0, wins: 0, seconds: 0 })
 
   const progress: PlayerProgress[] = season.players.map(player => ({
     player, points: [], ranks: [], played: [],
@@ -204,11 +224,13 @@ export function calculateSeasonProgress(season: Season): SeasonProgress {
     const playedThisWeek = new Set<string>()
 
     for (const match of bucket.matches) {
+      const matchOpenings = getMatchOpenings(match)
       for (const [playerId, pts] of getMatchLeaguePoints(match)) {
         const acc = totals.get(playerId)
         if (!acc) continue
         playedThisWeek.add(playerId)
         acc.points += pts
+        acc.openings += matchOpenings.get(playerId) ?? 0
         if (pts === 3) acc.wins++
         if (pts === 1) acc.seconds++
       }
@@ -218,6 +240,7 @@ export function calculateSeasonProgress(season: Season): SeasonProgress {
       .map(p => ({ id: p.id, ...totals.get(p.id)! }))
       .sort((a, b) => {
         if (b.points !== a.points) return b.points - a.points
+        if (b.openings !== a.openings) return b.openings - a.openings
         if (b.wins !== a.wins) return b.wins - a.wins
         return b.seconds - a.seconds
       })
@@ -226,7 +249,8 @@ export function calculateSeasonProgress(season: Season): SeasonProgress {
     const ranks = new Map<string, number>()
     standing.forEach((row, i) => {
       const prev = i > 0 ? standing[i - 1] : null
-      const tied = prev && prev.points === row.points && prev.wins === row.wins && prev.seconds === row.seconds
+      const tied = prev && prev.points === row.points && prev.openings === row.openings
+        && prev.wins === row.wins && prev.seconds === row.seconds
       ranks.set(row.id, tied ? ranks.get(prev!.id)! : i + 1)
     })
 
@@ -238,4 +262,101 @@ export function calculateSeasonProgress(season: Season): SeasonProgress {
   }
 
   return { weeks, players: progress }
+}
+
+// ---------------------------------------------------------------------------
+// Şampiyonluk: sezon 20 maçta biter, en çok puan alan şampiyon olur.
+// Puan eşitliğinde en çok el açan şampiyondur. Her 3 şampiyonluk 1 yıldız.
+// ---------------------------------------------------------------------------
+
+export const SEASON_MATCH_TARGET = 20
+export const TITLES_PER_STAR = 3
+
+export interface SeasonChampion {
+  player: Player
+  totalPoints: number
+  openings: number
+  /** Puan eşitti, şampiyonluk el açma sayısıyla belirlendi */
+  decidedByOpenings: boolean
+  /** Puan, el açma, galibiyet ve ikincilik hepsi eşit — kural çözemiyor */
+  unresolvedTie: boolean
+}
+
+export interface SeasonStatus {
+  season: Season
+  completedMatches: number
+  target: number
+  finished: boolean
+  champion: SeasonChampion | null
+  /** Sezon sürüyorsa mevcut lider */
+  leader: LeagueRow | null
+}
+
+export function getCompletedMatchCount(season: Season): number {
+  return season.matches.filter(m => m.completed).length
+}
+
+export function getSeasonChampion(season: Season): SeasonChampion | null {
+  if (getCompletedMatchCount(season) < SEASON_MATCH_TARGET) return null
+
+  const table = calculateLeagueTable(season)
+  const first = table[0]
+  if (!first) return null
+  const second = table[1]
+
+  const pointsTied = !!second && second.totalPoints === first.totalPoints
+  return {
+    player: first.player,
+    totalPoints: first.totalPoints,
+    openings: first.openings,
+    decidedByOpenings: pointsTied && second.openings !== first.openings,
+    unresolvedTie: pointsTied && compareLeagueRows(first, second) === 0,
+  }
+}
+
+export function getSeasonStatus(season: Season): SeasonStatus {
+  const completedMatches = getCompletedMatchCount(season)
+  const finished = completedMatches >= SEASON_MATCH_TARGET
+  const table = calculateLeagueTable(season)
+  return {
+    season,
+    completedMatches,
+    target: SEASON_MATCH_TARGET,
+    finished,
+    champion: getSeasonChampion(season),
+    leader: finished ? null : (table[0] ?? null),
+  }
+}
+
+export interface ChampionRow {
+  /** Oyuncular sezonlar arasında ada göre eşleştirilir */
+  name: string
+  titles: number
+  stars: number
+  seasonNames: string[]
+}
+
+export function calculateChampionshipTable(seasons: Season[]): ChampionRow[] {
+  const byName = new Map<string, ChampionRow>()
+
+  for (const season of seasons) {
+    const champion = getSeasonChampion(season)
+    if (!champion) continue
+    const name = champion.player.name.trim()
+    let row = byName.get(name)
+    if (!row) {
+      row = { name, titles: 0, stars: 0, seasonNames: [] }
+      byName.set(name, row)
+    }
+    row.titles++
+    row.seasonNames.push(season.name)
+  }
+
+  for (const row of byName.values()) {
+    row.stars = Math.floor(row.titles / TITLES_PER_STAR)
+  }
+
+  return [...byName.values()].sort(
+    (a, b) => b.titles - a.titles || a.name.localeCompare(b.name, 'tr'),
+  )
 }

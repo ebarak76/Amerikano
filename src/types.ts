@@ -39,6 +39,7 @@ export interface LeagueRow {
   matchesPlayed: number;
   wins: number;
   seconds: number;
+  openings: number;
   totalPoints: number;
 }
 
