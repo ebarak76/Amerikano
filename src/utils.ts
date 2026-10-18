@@ -288,6 +288,8 @@ export interface SeasonStatus {
   target: number
   finished: boolean
   champion: SeasonChampion | null
+  /** Sezon bittiyse en çok el açan */
+  istakaKing: IstakaKing | null
   /** Sezon sürüyorsa mevcut lider */
   leader: LeagueRow | null
 }
@@ -324,6 +326,7 @@ export function getSeasonStatus(season: Season): SeasonStatus {
     target: SEASON_MATCH_TARGET,
     finished,
     champion: getSeasonChampion(season),
+    istakaKing: getSeasonIstakaKing(season),
     leader: finished ? null : (table[0] ?? null),
   }
 }
@@ -359,4 +362,146 @@ export function calculateChampionshipTable(seasons: Season[]): ChampionRow[] {
   return [...byName.values()].sort(
     (a, b) => b.titles - a.titles || a.name.localeCompare(b.name, 'tr'),
   )
+}
+
+// ---------------------------------------------------------------------------
+// İstatistikler: tek sezon veya sezonlar üstü
+// Oyuncular sezonlar arasında isme göre eşleştirilir (şampiyonlukla aynı kural).
+// ---------------------------------------------------------------------------
+
+export interface StatPlayer {
+  name: string
+  matchesPlayed: number
+  wins: number
+  seconds: number
+  openings: number
+  leaguePoints: number
+  /** Maç başına lig puanı — yüksek iyi */
+  avgLeaguePoints: number
+  /** Maçlardaki toplam skor (ıstaka/açma toplamı) */
+  totalScore: number
+  /** Maç başına skor — DÜŞÜK iyi */
+  avgScore: number
+  /** Maç başına el açma */
+  avgOpenings: number
+}
+
+export interface MatchRecord {
+  playerName: string
+  score: number
+  seasonName: string
+  matchNumber: number
+  createdAt: string
+}
+
+export interface Stats {
+  players: StatPlayer[]
+  seasonCount: number
+  matchCount: number
+  gameCount: number
+  /** En düşük skorla kazanılan maç — en ezici galibiyet */
+  lowestWinningScore: MatchRecord | null
+  /** En yüksek skorla kazanılan maç — en zor/çekişmeli galibiyet */
+  highestWinningScore: MatchRecord | null
+}
+
+export function calculateStats(seasons: Season[]): Stats {
+  const byName = new Map<string, StatPlayer>()
+  let matchCount = 0
+  let gameCount = 0
+  let lowestWinningScore: MatchRecord | null = null
+  let highestWinningScore: MatchRecord | null = null
+
+  for (const season of seasons) {
+    const nameOf = new Map(season.players.map(p => [p.id, p.name.trim()]))
+
+    season.matches.forEach((match, index) => {
+      if (!match.completed) return
+      matchCount++
+      gameCount += match.games.filter(g => g.completed).length
+
+      const totals = getMatchTotalScores(match)
+      const leaguePoints = getMatchLeaguePoints(match)
+      const openings = getMatchOpenings(match)
+
+      for (const [playerId, points] of leaguePoints) {
+        const name = nameOf.get(playerId)
+        if (!name) continue
+
+        let row = byName.get(name)
+        if (!row) {
+          row = {
+            name, matchesPlayed: 0, wins: 0, seconds: 0, openings: 0,
+            leaguePoints: 0, avgLeaguePoints: 0, totalScore: 0, avgScore: 0, avgOpenings: 0,
+          }
+          byName.set(name, row)
+        }
+
+        const score = totals.get(playerId) ?? 0
+        row.matchesPlayed++
+        row.leaguePoints += points
+        row.openings += openings.get(playerId) ?? 0
+        row.totalScore += score
+        if (points === 3) row.wins++
+        if (points === 1) row.seconds++
+
+        // Rekorlar yalnızca maçı kazananlar arasından
+        if (points === 3) {
+          const record: MatchRecord = {
+            playerName: name,
+            score,
+            seasonName: season.name,
+            matchNumber: index + 1,
+            createdAt: match.createdAt,
+          }
+          if (!lowestWinningScore || score < lowestWinningScore.score) lowestWinningScore = record
+          if (!highestWinningScore || score > highestWinningScore.score) highestWinningScore = record
+        }
+      }
+    })
+  }
+
+  const players = [...byName.values()]
+  for (const row of players) {
+    if (row.matchesPlayed > 0) {
+      row.avgLeaguePoints = row.leaguePoints / row.matchesPlayed
+      row.avgScore = row.totalScore / row.matchesPlayed
+      row.avgOpenings = row.openings / row.matchesPlayed
+    }
+  }
+  players.sort((a, b) => b.leaguePoints - a.leaguePoints || a.name.localeCompare(b.name, 'tr'))
+
+  return {
+    players,
+    seasonCount: seasons.length,
+    matchCount,
+    gameCount,
+    lowestWinningScore,
+    highestWinningScore,
+  }
+}
+
+export interface IstakaKing {
+  player: Player
+  openings: number
+  /** Birden fazla oyuncu aynı sayıda el açtı */
+  shared: boolean
+}
+
+/** Sezon bitiminde en çok el açan "Istaka Kralı" ünvanını alır. */
+export function getSeasonIstakaKing(season: Season): IstakaKing | null {
+  if (getCompletedMatchCount(season) < SEASON_MATCH_TARGET) return null
+
+  const table = calculateOpeningTable(season)
+  const top = table[0]
+  if (!top || top.openings === 0) return null
+
+  const player = season.players.find(p => p.id === top.player.id)
+  if (!player) return null
+
+  return {
+    player,
+    openings: top.openings,
+    shared: table.filter(r => r.openings === top.openings).length > 1,
+  }
 }

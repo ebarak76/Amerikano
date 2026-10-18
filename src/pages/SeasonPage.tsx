@@ -44,16 +44,29 @@ export default function SeasonPage({ getSeason }: Props) {
           </Link>
         </div>
 
-        <Link
-          to={`/season/${season.id}/progress`}
-          className="flex items-center justify-center gap-2 bg-white text-navy-700 border border-navy-200 text-center py-3.5 rounded-2xl font-bold active:bg-navy-50 transition-colors text-base shadow-sm"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 17l6-6 4 4 7-7" />
-            <path d="M17 7h4v4" />
-          </svg>
-          Puan Grafiği
-        </Link>
+        <div className="flex gap-3">
+          <Link
+            to={`/season/${season.id}/progress`}
+            className="flex-1 flex items-center justify-center gap-2 bg-white text-navy-700 border border-navy-200 text-center py-3.5 rounded-2xl font-bold active:bg-navy-50 transition-colors text-sm shadow-sm"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 17l6-6 4 4 7-7" />
+              <path d="M17 7h4v4" />
+            </svg>
+            Puan Grafiği
+          </Link>
+          <Link
+            to={`/season/${season.id}/stats`}
+            className="flex-1 flex items-center justify-center gap-2 bg-white text-navy-700 border border-navy-200 text-center py-3.5 rounded-2xl font-bold active:bg-navy-50 transition-colors text-sm shadow-sm"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M12 20V10" />
+              <path d="M18 20V4" />
+              <path d="M6 20v-4" />
+            </svg>
+            İstatistikler
+          </Link>
+        </div>
 
         {/* Players */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-navy-100">

@@ -11,6 +11,7 @@ import GamePage from './pages/GamePage'
 import LeaguePage from './pages/LeaguePage'
 import ProgressPage from './pages/ProgressPage'
 import ChampionshipPage from './pages/ChampionshipPage'
+import StatsPage from './pages/StatsPage'
 
 const POLL_INTERVAL = 5000
 
@@ -95,6 +96,12 @@ function App() {
       <Routes>
         <Route path="/" element={
           <HomePage seasons={seasons} />
+        } />
+        <Route path="/stats" element={
+          <StatsPage seasons={seasons} />
+        } />
+        <Route path="/season/:seasonId/stats" element={
+          <StatsPage seasons={seasons} />
         } />
         <Route path="/championships" element={
           <ChampionshipPage seasons={seasons} />

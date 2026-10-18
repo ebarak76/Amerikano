@@ -142,7 +142,23 @@ export default function ChampionshipPage({ seasons }: { seasons: Season[] }) {
                           {st.champion.totalPoints}p · {st.champion.openings} el
                         </span>
                       </div>
-                    ) : (
+                    ) : null}
+
+                    {st.finished && st.istakaKing && (
+                      <div className="mt-1.5 flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.2" strokeLinejoin="round" className="shrink-0">
+                          <path d="M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-1.8 10H4.8z" />
+                        </svg>
+                        <span className="text-sm font-bold text-emerald-700 truncate">
+                          {st.istakaKing.player.name}
+                        </span>
+                        <span className="text-[11px] text-navy-400 font-medium shrink-0">
+                          Istaka Kralı · {st.istakaKing.openings} el
+                        </span>
+                      </div>
+                    )}
+
+                    {!st.finished && (
                       <>
                         <div className="mt-2 h-1.5 bg-navy-100 rounded-full overflow-hidden">
                           <div className="h-full bg-navy-400 rounded-full" style={{ width: `${pct}%` }} />
