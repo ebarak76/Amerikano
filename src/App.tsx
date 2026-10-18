@@ -9,6 +9,7 @@ import NewMatchPage from './pages/NewMatchPage'
 import MatchPage from './pages/MatchPage'
 import GamePage from './pages/GamePage'
 import LeaguePage from './pages/LeaguePage'
+import ProgressPage from './pages/ProgressPage'
 
 const POLL_INTERVAL = 5000
 
@@ -77,7 +78,7 @@ function App() {
   }
 
   return (
-    <div className="max-w-lg mx-auto min-h-svh flex flex-col bg-navy-50">
+    <div className="w-full max-w-lg mx-auto min-h-svh flex flex-col bg-navy-50">
       {saveError && (
         <div className="fixed top-0 inset-x-0 z-50 max-w-lg mx-auto">
           <div className="m-2 flex items-center gap-2 bg-red-600 text-white text-sm font-semibold px-4 py-3 rounded-xl shadow-lg">
@@ -114,6 +115,9 @@ function App() {
         } />
         <Route path="/season/:seasonId/league" element={
           <LeaguePage getSeason={getSeason} />
+        } />
+        <Route path="/season/:seasonId/progress" element={
+          <ProgressPage getSeason={getSeason} />
         } />
       </Routes>
     </div>

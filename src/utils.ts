@@ -1,4 +1,4 @@
-import type { Match, Season, LeagueRow, GameScore } from './types';
+import type { Match, Season, LeagueRow, GameScore, Player } from './types';
 
 export function calculateGameScore(score: GameScore): number {
   const base = score.opened ? -50 : score.remainingPoints;
@@ -121,4 +121,121 @@ export function calculateOpeningTable(season: Season): OpeningRow[] {
     if (b.openings !== a.openings) return b.openings - a.openings;
     return a.matchesPlayed - b.matchesPlayed;
   });
+}
+
+// ---------------------------------------------------------------------------
+// Sezon gidişatı: haftalık kümülatif lig puanı ve sıralama
+// ---------------------------------------------------------------------------
+
+export interface SeasonWeek {
+  key: string        // "2026-W36"
+  label: string      // "5 Eyl"
+  matchCount: number
+}
+
+export interface PlayerProgress {
+  player: Player
+  points: number[]   // her hafta sonundaki kümülatif lig puanı
+  ranks: number[]    // her hafta sonundaki sıra (1 = lider)
+  played: boolean[]  // o hafta maç oynadı mı
+}
+
+export interface SeasonProgress {
+  weeks: SeasonWeek[]
+  players: PlayerProgress[]
+}
+
+const TR_MONTHS = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara']
+
+// Gece yarısını geçen oturumlar bir önceki güne sayılsın diye 6 saat geri alınır:
+// 05:00'te biten bir Cumartesi gecesi oturumu Pazar'a (ve bazen sonraki haftaya)
+// kaymamalı.
+function sessionDate(iso: string): Date {
+  const d = new Date(iso)
+  d.setHours(d.getHours() - 6)
+  return d
+}
+
+function isoWeekKey(d: Date): string {
+  const t = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+  const dayMonFirst = (t.getDay() + 6) % 7
+  t.setDate(t.getDate() - dayMonFirst + 3)        // bu haftanın perşembesi
+  const year = t.getFullYear()
+  const jan4 = new Date(year, 0, 4)
+  const week1Thursday = new Date(year, 0, 4 - ((jan4.getDay() + 6) % 7) + 3)
+  const week = 1 + Math.round((t.getTime() - week1Thursday.getTime()) / (7 * 86400000))
+  return `${year}-W${String(week).padStart(2, '0')}`
+}
+
+export function calculateSeasonProgress(season: Season): SeasonProgress {
+  const completed = season.matches.filter(m => m.completed)
+  if (completed.length === 0) return { weeks: [], players: [] }
+
+  // Maçları hafta anahtarına göre grupla, haftaları kronolojik sırala.
+  const byWeek = new Map<string, { date: Date; matches: Match[] }>()
+  for (const match of completed) {
+    const d = sessionDate(match.createdAt)
+    const key = isoWeekKey(d)
+    const bucket = byWeek.get(key)
+    if (bucket) {
+      bucket.matches.push(match)
+      if (d < bucket.date) bucket.date = d
+    } else {
+      byWeek.set(key, { date: d, matches: [match] })
+    }
+  }
+  const ordered = [...byWeek.entries()].sort((a, b) => a[1].date.getTime() - b[1].date.getTime())
+
+  const weeks: SeasonWeek[] = ordered.map(([key, b]) => ({
+    key,
+    label: `${b.date.getDate()} ${TR_MONTHS[b.date.getMonth()]}`,
+    matchCount: b.matches.length,
+  }))
+
+  // Lig tablosuyla aynı sıralama ölçütleri: puan, sonra galibiyet, sonra ikincilik.
+  const totals = new Map<string, { points: number; wins: number; seconds: number }>()
+  for (const p of season.players) totals.set(p.id, { points: 0, wins: 0, seconds: 0 })
+
+  const progress: PlayerProgress[] = season.players.map(player => ({
+    player, points: [], ranks: [], played: [],
+  }))
+
+  for (const [, bucket] of ordered) {
+    const playedThisWeek = new Set<string>()
+
+    for (const match of bucket.matches) {
+      for (const [playerId, pts] of getMatchLeaguePoints(match)) {
+        const acc = totals.get(playerId)
+        if (!acc) continue
+        playedThisWeek.add(playerId)
+        acc.points += pts
+        if (pts === 3) acc.wins++
+        if (pts === 1) acc.seconds++
+      }
+    }
+
+    const standing = season.players
+      .map(p => ({ id: p.id, ...totals.get(p.id)! }))
+      .sort((a, b) => {
+        if (b.points !== a.points) return b.points - a.points
+        if (b.wins !== a.wins) return b.wins - a.wins
+        return b.seconds - a.seconds
+      })
+
+    // Eşitlikte aynı sıra verilir (1, 2, 2, 4).
+    const ranks = new Map<string, number>()
+    standing.forEach((row, i) => {
+      const prev = i > 0 ? standing[i - 1] : null
+      const tied = prev && prev.points === row.points && prev.wins === row.wins && prev.seconds === row.seconds
+      ranks.set(row.id, tied ? ranks.get(prev!.id)! : i + 1)
+    })
+
+    for (const p of progress) {
+      p.points.push(totals.get(p.player.id)!.points)
+      p.ranks.push(ranks.get(p.player.id)!)
+      p.played.push(playedThisWeek.has(p.player.id))
+    }
+  }
+
+  return { weeks, players: progress }
 }

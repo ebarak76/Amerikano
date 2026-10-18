@@ -13,11 +13,11 @@
   --color-navy-900: #0c1631;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Not: evrensel bir reset'i buraya KOYMAYIN. Tailwind v4 utilities'i
+   @layer utilities icine koyar; katmansiz bir `* { padding: 0 }` kurali
+   katmanli butun padding ve margin siniflarini gecersiz kilar (katmansiz
+   CSS her zaman kazanir). Ayni sifirlamayi Tailwind preflight zaten
+   @layer base icinde yapiyor. */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

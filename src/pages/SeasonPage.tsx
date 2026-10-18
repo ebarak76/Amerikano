@@ -43,6 +43,17 @@ export default function SeasonPage({ getSeason }: Props) {
           </Link>
         </div>
 
+        <Link
+          to={`/season/${season.id}/progress`}
+          className="flex items-center justify-center gap-2 bg-white text-navy-700 border border-navy-200 text-center py-3.5 rounded-2xl font-bold active:bg-navy-50 transition-colors text-base shadow-sm"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 17l6-6 4 4 7-7" />
+            <path d="M17 7h4v4" />
+          </svg>
+          Puan Grafiği
+        </Link>
+
         {/* Players */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-navy-100">
           <h2 className="text-xs font-bold text-navy-400 uppercase tracking-wider mb-3 flex items-center gap-2">
