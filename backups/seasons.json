@@ -7798,10 +7798,864 @@
         ]
       },
       {
-        "completed": false,
+        "completed": true,
         "createdAt": "2026-11-11T19:09:59.643Z",
-        "games": [],
+        "games": [
+          {
+            "completed": true,
+            "gameTypeId": 3,
+            "id": "mwf8oaj3dlo0l",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 9,
+                "totalPoints": 9
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 54,
+                "totalPoints": 54
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 21,
+                "totalPoints": 21
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 5,
+            "id": "mwf9c38mcisp8",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 5,
+                "totalPoints": 5
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 3,
+                "totalPoints": 3
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 6,
+            "id": "mwf9f7pbyffoy",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 11,
+                "totalPoints": 11
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 20,
+                "totalPoints": 20
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 48,
+                "totalPoints": 48
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 4,
+            "id": "mwf9qg6kddq35",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 16,
+                "totalPoints": 16
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 20,
+                "totalPoints": 20
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 7,
+            "id": "mwfa988cvf6s0",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 21,
+                "totalPoints": 21
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 91,
+                "totalPoints": 91
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 6,
+                "totalPoints": 6
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 1,
+            "id": "mwfb1h4ymhugu",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 36,
+                "totalPoints": 36
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 52,
+                "totalPoints": 52
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 44,
+                "totalPoints": 44
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 11,
+            "id": "mwfbed7qh83xl",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 131,
+                "totalPoints": 131
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 50,
+                "totalPoints": 50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 10,
+            "id": "mwfbu05crgejq",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 4,
+                "totalPoints": 4
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 28,
+                "totalPoints": 28
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 3,
+                "totalPoints": 3
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 9,
+            "id": "mwfc8zedn5fek",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 2,
+                "totalPoints": 2
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 28,
+                "totalPoints": 28
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 2,
+            "id": "mwfd1n0vmtheu",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 75,
+                "totalPoints": 75
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 13,
+                "totalPoints": 13
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 8,
+            "id": "mwfdf4f5eux5x",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 9,
+                "totalPoints": 9
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 10,
+                "totalPoints": 10
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 12,
+            "id": "mwfemeouro1kj",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 78,
+                "totalPoints": 78
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 110,
+                "totalPoints": 110
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 130,
+                "totalPoints": 130
+              }
+            ]
+          }
+        ],
         "id": "mwchu5srexhkp",
+        "playerIds": [
+          "mteiip2c266wm",
+          "mteiip2c72356",
+          "mteiip2cuu8y2",
+          "mteiip2clipot"
+        ]
+      },
+      {
+        "completed": true,
+        "createdAt": "2026-11-13T22:45:52.086Z",
+        "games": [
+          {
+            "completed": true,
+            "gameTypeId": 1,
+            "id": "mwfkft6dq55s7",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 2,
+            "id": "mwfkg54qbdaqq",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 3,
+            "id": "mwfkggesf3mw9",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 4,
+            "id": "mwfkgrlts87rs",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 5,
+            "id": "mwfkh67ipyrhs",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 6,
+            "id": "mwfkih8b7sjxo",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 7,
+            "id": "mwfkired7bcuw",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 8,
+            "id": "mwfkj40pn1fzs",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 9,
+            "id": "mwfkjfkqi3jga",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 10,
+            "id": "mwfkjr7h6doed",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 11,
+            "id": "mwfkk18328xue",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 12,
+            "id": "mwfkka8rcl43f",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c266wm",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2c72356",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mteiip2cuu8y2",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mteiip2clipot",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          }
+        ],
+        "id": "mwfkfhau499na",
         "playerIds": [
           "mteiip2c266wm",
           "mteiip2c72356",
@@ -7827,6 +8681,897 @@
       {
         "id": "mteiip2clipot",
         "name": "Bahriye Barak"
+      }
+    ]
+  },
+  {
+    "created_at": "2026-11-13T20:05:47.873+00:00",
+    "id": "mwfepmn5t1dwb",
+    "matches": [
+      {
+        "completed": true,
+        "createdAt": "2026-11-13T20:05:54.608Z",
+        "games": [
+          {
+            "completed": true,
+            "gameTypeId": 5,
+            "id": "mwff76enfbv4l",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 26,
+                "totalPoints": 26
+              },
+              {
+                "islerCount": 1,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 1,
+                "totalPoints": 26
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 8,
+                "totalPoints": 8
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 6,
+            "id": "mwffxu3zwmo7j",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 9,
+                "totalPoints": 9
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 3,
+                "totalPoints": 3
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 10,
+                "totalPoints": 10
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 2,
+            "id": "mwfgmltd3939x",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 7,
+                "totalPoints": 7
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 9,
+                "totalPoints": 9
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 1,
+            "id": "mwfgq4i4quuvh",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 7,
+                "totalPoints": 7
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 31,
+                "totalPoints": 31
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 6,
+                "totalPoints": 6
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 4,
+            "id": "mwfh3gq4t1h5y",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 46,
+                "totalPoints": 46
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 34,
+                "totalPoints": 34
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 12,
+                "totalPoints": 12
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 3,
+            "id": "mwfhcwv4brp2i",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 17,
+                "totalPoints": 17
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 4,
+                "totalPoints": 4
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 18,
+                "totalPoints": 18
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 7,
+            "id": "mwfhwg5wl8awq",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 128,
+                "totalPoints": 128
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 130,
+                "totalPoints": 130
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 67,
+                "totalPoints": 67
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 10,
+            "id": "mwfi5b1d5919k",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 2,
+                "totalPoints": 2
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 4,
+                "totalPoints": 4
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 2,
+                "totalPoints": 2
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 9,
+            "id": "mwfiqyprh095d",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 82,
+                "totalPoints": 82
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 11,
+            "id": "mwfjdf61xfv8b",
+            "scores": [
+              {
+                "islerCount": 1,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 18,
+                "totalPoints": 43
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 63,
+                "totalPoints": 63
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 25,
+                "totalPoints": 25
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 8,
+            "id": "mwfjvh2z76cw3",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 24,
+                "totalPoints": 24
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 31,
+                "totalPoints": 31
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 122,
+                "totalPoints": 122
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 12,
+            "id": "mwfkc9xym10hv",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 186,
+                "totalPoints": 186
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 224,
+                "totalPoints": 224
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 166,
+                "totalPoints": 166
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          }
+        ],
+        "id": "mwfepru8aj6qi",
+        "playerIds": [
+          "mwfepmn50o61z",
+          "mwfepmn5umg2c",
+          "mwfepmn5k2ue3",
+          "mwfepmn538bgb"
+        ]
+      },
+      {
+        "completed": true,
+        "createdAt": "2026-11-13T23:08:48.110Z",
+        "games": [
+          {
+            "completed": true,
+            "gameTypeId": 3,
+            "id": "mwflekfv6qm13",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 15,
+                "totalPoints": 15
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 8,
+                "totalPoints": 8
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 71,
+                "totalPoints": 71
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 7,
+            "id": "mwfloyyx2bb1l",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 75,
+                "totalPoints": 75
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 50,
+                "totalPoints": 50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 110,
+                "totalPoints": 110
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 4,
+            "id": "mwflz31xrki5c",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 17,
+                "totalPoints": 17
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 5,
+                "totalPoints": 5
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 41,
+                "totalPoints": 41
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 2,
+            "id": "mwfmc0xetstrm",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 1,
+                "totalPoints": 1
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 2,
+                "totalPoints": 2
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 5,
+                "totalPoints": 5
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 1,
+            "id": "mwfmz21xrx51z",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 15,
+                "totalPoints": 15
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 4,
+                "totalPoints": 4
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 12,
+                "totalPoints": 12
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 5,
+            "id": "mwfnkpmwcp9ju",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 5,
+                "totalPoints": 5
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 5,
+                "totalPoints": 5
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 2,
+                "totalPoints": 2
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 6,
+            "id": "mwfo3p2gk6gmv",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 103,
+                "totalPoints": 103
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 3,
+                "totalPoints": 3
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 7,
+                "totalPoints": 7
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 11,
+            "id": "mwfolx1jller0",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 198,
+                "totalPoints": 198
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 92,
+                "totalPoints": 92
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 114,
+                "totalPoints": 114
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 10,
+            "id": "mwfoyyi2hi3xc",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 125,
+                "totalPoints": 125
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 7,
+                "totalPoints": 7
+              },
+              {
+                "islerCount": 1,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 67,
+                "totalPoints": 92
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 8,
+            "id": "mwfpr68gm23vf",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 63,
+                "totalPoints": 63
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 6,
+                "totalPoints": 6
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 17,
+                "totalPoints": 17
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 9,
+            "id": "mwfqay3af31az",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 29,
+                "totalPoints": 29
+              },
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 10,
+                "totalPoints": 10
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 266,
+                "totalPoints": 266
+              }
+            ]
+          },
+          {
+            "completed": true,
+            "gameTypeId": 12,
+            "id": "mwfqs1cnj4gq4",
+            "scores": [
+              {
+                "islerCount": 0,
+                "opened": true,
+                "playerId": "mwfepmn50o61z",
+                "remainingPoints": 0,
+                "totalPoints": -50
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5umg2c",
+                "remainingPoints": 228,
+                "totalPoints": 228
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn5k2ue3",
+                "remainingPoints": 128,
+                "totalPoints": 128
+              },
+              {
+                "islerCount": 0,
+                "opened": false,
+                "playerId": "mwfepmn538bgb",
+                "remainingPoints": 220,
+                "totalPoints": 220
+              }
+            ]
+          }
+        ],
+        "id": "mwfl8z1qh8184",
+        "playerIds": [
+          "mwfepmn50o61z",
+          "mwfepmn5umg2c",
+          "mwfepmn5k2ue3",
+          "mwfepmn538bgb"
+        ]
+      }
+    ],
+    "name": "İlhan Mansız Sezonu",
+    "players": [
+      {
+        "id": "mwfepmn50o61z",
+        "name": "Ertuğrul"
+      },
+      {
+        "id": "mwfepmn5umg2c",
+        "name": "Bahriye"
+      },
+      {
+        "id": "mwfepmn5k2ue3",
+        "name": "Serap"
+      },
+      {
+        "id": "mwfepmn538bgb",
+        "name": "Ergün"
       }
     ]
   }
